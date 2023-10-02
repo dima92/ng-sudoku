@@ -1,0 +1,16 @@
+:root {
+  // If changing cell size, remember to change the cell size in the config.ts file as well
+  --inner-cell-size: 60px;
+  --cell-rounded-border: 8px;
+  --cell-padding: 10px;
+  --cell-size: calc(var(--inner-cell-size) + 2 * var(--cell-padding));
+}
+
+.app-root {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}

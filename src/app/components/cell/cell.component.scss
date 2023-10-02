@@ -1,0 +1,113 @@
+.text-format {
+  font-family: Raleway, Helvetica, sans-serif;
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.cell-container {
+  @extend .text-format;
+  height: var(--cell-size);
+  width: var(--cell-size);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  & .cell-value {
+    color: rgb(74, 77, 80);
+  }
+
+  & svg {
+    position: absolute;
+    z-index: -1;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    fill: #aec2ca;
+
+    [class^="bridge"] {
+      opacity: 0.7;
+    }
+  }
+
+  &__active {
+    svg {
+      fill: #88a6af;
+    }
+  }
+
+  &__zoom-in {
+    .grid-cell {
+      transform: scale(1.1);
+      transform-origin: center;
+    }
+  }
+
+  &__selected {
+    .grid-cell {
+      transform: scale(1.1);
+      transform-origin: center;
+      fill: #778fa2;
+    }
+  }
+
+  &__wrong-answer {
+    .grid-cell {
+      transform: scale(1.1);
+      transform-origin: center;
+      fill: rgb(193, 146, 146);
+      animation: wiggle 0.2s 3;
+
+      @keyframes wiggle {
+        0% {
+          transform: rotate(0deg) scale(1.1);
+        }
+        33% {
+          transform: rotate(-10deg) scale(1.1);
+        }
+        67% {
+          transform: rotate(10deg) scale(1.1);
+        }
+        100% {
+          transform: rotate(0deg) scale(1.1);
+        }
+      }
+    }
+  }
+
+  &__correct-answer {
+    .grid-cell {
+      animation: zoom-in-out 0.5s 1;
+      fill: #aecab2;
+
+      @keyframes zoom-in-out {
+        0% {
+          fill: #778fa2;
+        }
+        30% {
+          transform: scale(1.2);
+          transform-origin: center;
+          fill: #aecab2;
+        }
+        100% {
+          transform: scale(1);
+          transform-origin: center;
+          fill: #aecab2;
+        }
+      }
+    }
+  }
+
+  .area-sum {
+    font-size: small;
+    font-weight: bolder;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: black;
+    color: aliceblue;
+    padding: 2px;
+    border-radius: 2px;
+  }
+}

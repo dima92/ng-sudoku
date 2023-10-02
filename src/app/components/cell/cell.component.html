@@ -1,0 +1,70 @@
+<div
+  [ngClass]="{
+    'cell-container': true,
+    'cell-container__active': isActiveArea$ | async,
+    'cell-container__zoom-in': isZoomingIn$ | async,
+    'cell-container__selected': isSelected$ | async,
+    'cell-container__wrong-answer': (isWrongAnswer$ | async),
+    'cell-container__correct-answer': (isCorrectAnswer$ | async)
+  }"
+  (mouseenter)="isMouseOverSubject$.next(true)"
+  (mouseleave)="isMouseOverSubject$.next(false)"
+  (click)="mouseClickSubject$.next()"
+  (keypress)="keyPressSubject$.next($event.key)"
+  tabindex="0"
+>
+  <svg>
+    <!-- Top bridge -->
+    <rect
+      *ngIf="(bridges$ | async)?.up"
+      [attr.height]="cellPadding"
+      [attr.width]="bridgeWidth"
+      [attr.x]="cellPadding + (innerCellSize - bridgeWidth) / 2"
+      [attr.y]="0"
+      class="bridge__top"
+    ></rect>
+
+    <!-- Bottom bridge -->
+    <rect
+      *ngIf="(bridges$ | async)?.down"
+      [attr.height]="cellPadding"
+      [attr.width]="bridgeWidth"
+      [attr.x]="cellPadding + (innerCellSize - bridgeWidth) / 2"
+      [attr.y]="cellPadding + innerCellSize"
+      class="bridge__bottom"
+    ></rect>
+
+    <!-- Left bridge -->
+    <rect
+      *ngIf="(bridges$ | async)?.left"
+      [attr.height]="bridgeWidth"
+      [attr.width]="cellPadding"
+      [attr.x]="0"
+      [attr.y]="cellPadding + (innerCellSize - bridgeWidth) / 2"
+      class="bridge__left"
+    ></rect>
+
+    <!-- Right bridge -->
+    <rect
+      *ngIf="(bridges$ | async)?.right"
+      [attr.height]="bridgeWidth"
+      [attr.width]="cellPadding"
+      [attr.x]="cellPadding + innerCellSize"
+      [attr.y]="cellPadding + (innerCellSize - bridgeWidth) / 2"
+      class="bridge__right"
+    ></rect>
+
+    <rect
+      [attr.height]="innerCellSize"
+      [attr.width]="innerCellSize"
+      [attr.x]="cellPadding"
+      [attr.y]="cellPadding"
+      class="grid-cell"
+      [attr.rx]="8"
+    />
+  </svg>
+  <div class="area-sum" *ngIf="displayAreaSum$ | async as areaSum">
+    {{ areaSum }}
+  </div>
+  <div class="cell-value">{{ enteredValue$ | async }}</div>
+</div>
